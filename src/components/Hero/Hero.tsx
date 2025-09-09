@@ -1,8 +1,15 @@
-import { memo } from "react";
+import { memo, useCallback } from "react";
 import Button from "../ui/Button/Button";
 import styles from "./Hero.module.scss";
 
 const Hero = () => {
+  const handleSignUpClick = useCallback(() => {
+    const formElement = document.getElementById('form');
+    if (formElement) {
+      formElement.scrollIntoView({ behavior: 'smooth' });
+    }
+  }, []);
+
   return (
     <section className={styles.hero} id="hero" aria-labelledby="hero-title">
       <h1 id="hero-title">Test assignment for front-end developer</h1>
@@ -13,7 +20,12 @@ const Hero = () => {
         mind. They should also be excited to learn, as the world of Front-End
         Development keeps evolving.
       </p>
-      <Button aria-label="Sign up for the test assignment">Sign Up</Button>
+      <Button 
+        onClick={handleSignUpClick}
+        aria-label="Sign up for the test assignment"
+      >
+        Sign Up
+      </Button>
     </section>
   );
 };
