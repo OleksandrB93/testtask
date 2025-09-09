@@ -23,14 +23,12 @@ const Card: React.FC<CardProps> = ({
   return (
     <div className={cardClasses}>
       {type === "normal" && <Avatar avatar={avatar} />}
-      <div className={styles.header}>
-        <h3>{name}</h3>
-      </div>
+      <h3 className={styles.header}>{name}</h3>
       {type === "normal" && (
         <>
-          <div className={styles.position}>{position}</div>
-          <div className={styles.email}>{email}</div>
-          <div className={styles.phone}>{phone}</div>
+          <p className={styles.position}>{position}</p>
+          <p className={styles.email}>{email}</p>
+          <p className={styles.phone}>{phone}</p>
         </>
       )}
     </div>

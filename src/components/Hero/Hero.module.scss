@@ -1,0 +1,49 @@
+@use '../../styles/variables' as *;
+@use '../../styles/colors' as *;
+@use 'sass:map';
+
+.hero {
+    background-image:linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../../assets/hero.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    max-width: 1168px;
+    padding: 40px 16px;
+    background-color: $gray-light;
+    
+    @media (min-width: map.get($breakpoints, md)) {
+        padding: 89px 194px;
+    }
+    @media (min-width: map.get($breakpoints, lg)) {
+        padding: 164px 322px;
+    }
+    @media (min-width: map.get($breakpoints, xl)) {
+        padding: 164px 395px;
+    }
+
+    h1 {
+        font-size: $font-size-4xl;
+        line-height: 40px;
+        text-align: center;
+        color: $white;
+        margin-bottom: 21px;
+        @media (min-width: map.get($breakpoints, md)) {
+            font-size: $font-size-4xl;
+            line-height: 40px;
+        }
+        @media (min-width: map.get($breakpoints, lg)) {
+            font-size: $font-size-4xl;
+            line-height: 40px;
+        }
+    }
+    p {
+        font-size: $font-size-base;
+        line-height: $line-height-base;
+        text-align: center;
+        color: $white;
+        margin-bottom: 32px;
+    }
+}

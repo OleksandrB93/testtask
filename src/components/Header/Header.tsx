@@ -4,13 +4,15 @@ import styles from "./Header.module.scss";
 
 const Header = () => {
   return (
-    <div className={styles.header}>
-      <Logo />
-      <div className={styles.btnsWrapper}>
-        <Button>Users</Button>
-        <Button>Sign Up</Button>
+    <header className={styles.headerWrapper}>
+      <div className={styles.header}>
+        <Logo />
+        <div className={styles.btnsWrapper}>
+          <Button>Users</Button>
+          <Button>Sign Up</Button>
+        </div>
       </div>
-    </div>
+    </header>
   );
 };
 

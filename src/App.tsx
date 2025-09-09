@@ -1,5 +1,7 @@
 import "./App.scss";
 import Header from "./components/Header/Header";
+import Hero from "./components/Hero/Hero";
+import Team from "./components/Team/Team";
 import Form from "./components/ui/Form/Form";
 // import Input from "./components/ui/Input/Input";
 // import { useState } from "react";
@@ -27,28 +29,10 @@ function App() {
   return (
     <div className="app">
       <Header />
-
+      <Hero />
+      <Team />
       <Form />
 
-      {/* <Input
-          type="radio"
-          label="Radio Options"
-          radioOptions={radioOptions}
-          radioValue={radioValue}
-          onRadioChange={setRadioValue}
-          helperText="Select an option"
-        /> */}
-
-      {/* <Input
-          type="upload"
-          label="Photo Upload"
-          placeholder="Upload your photo"
-          value={uploadValue}
-          onChange={handleUploadChange}
-          onFileSelect={handleFileSelect}
-          uploadButtonText="Upload"
-          helperText="Select an image file"
-        /> */}
       {/* <Spinner size="large" color="secondary" /> */}
       {/* <Tooltip content="This is a tooltip on bottom" position="bottom">
           <Button>Hover me (Bottom)</Button>

@@ -12,9 +12,8 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: map.get($spacers, 6);
+    // gap: map.get($spacers, 6);
     background-color: $black;
-
     background-color: $white;
 
     .header {
@@ -22,6 +21,7 @@
         line-height: $line-height-base;
         flex-direction: column;
         gap: map.get($spacers, 6);
+        margin: 20px 0;
     }
 
     .content {
@@ -29,5 +29,9 @@
         line-height: $line-height-base;
         flex-direction: column;
         gap: map.get($spacers, 6);
+    }
+
+    .position, .email, .phone {
+        line-height: 1.1;
     }
 }

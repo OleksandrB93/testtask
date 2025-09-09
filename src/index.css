@@ -15,7 +15,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
     color: var(--black);
-  background-color: var(--background);
+  background-color: #F8F8F8;
+  padding-top: 60px;
 }
 
 #root {

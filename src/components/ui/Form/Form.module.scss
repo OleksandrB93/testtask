@@ -1,14 +1,25 @@
 @use '../../../styles/colors' as *;
 @use '../../../styles/variables' as *;
+@use 'sass:map';
 
 .form {
-    max-width: 328px;
+    max-width: 450px;
     display: flex;
     flex-direction: column;
     gap: 50px;
     margin: 0 auto;
+    padding: $p-sm;
 
-    
+    @media (min-width: map.get($breakpoints, md)) {
+        padding: $p-md;
+    }
+    @media (min-width: map.get($breakpoints, lg)) {
+        padding: $p-lg;
+    }
+    @media (min-width: map.get($breakpoints, xl)) {
+        padding: $p-xl;
+    }
+
     h1 {
         text-align: center;
         font-size: 40px;

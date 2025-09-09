@@ -99,7 +99,7 @@ const Form = () => {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-      <h1>Working with POST request</h1>
+      <h2>Working with POST request</h2>
 
       <FormInput
         label="Your name"

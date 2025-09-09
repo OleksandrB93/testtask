@@ -1,0 +1,47 @@
+@use '../../styles/variables' as *;
+@use '../../styles/colors' as *;
+@use 'sass:map';
+
+.team {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    gap: 29px;
+    padding: $p-sm;
+    max-width: 1168px;
+
+    @media (min-width: map.get($breakpoints, md)) {
+        padding: $p-md;
+    }
+    @media (min-width: map.get($breakpoints, lg)) {
+        padding: $p-lg;
+    }
+    @media (min-width: map.get($breakpoints, xl)) {
+        padding: $p-xl;
+    }
+
+    h2 {
+        font-size: $font-size-4xl;
+        line-height: 40px;
+        
+        text-align: center;
+        color: $black;
+        margin-bottom: 50px;
+    }
+
+    ul {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 16px;
+        @media (min-width: map.get($breakpoints, md)) {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        @media (min-width: map.get($breakpoints, lg)) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        @media (min-width: map.get($breakpoints, xl)) {
+            grid-template-columns: repeat(3, 1fr);
+        }
+        margin-bottom: 50px;
+    }
+}
