@@ -2,8 +2,8 @@
 @use '../../../styles/variables' as *;
 
 .spinner {
-  display: inline-block;
   position: relative;
+  display: inline-block;
   
   &.small {
     width: 16px;
@@ -19,18 +19,7 @@
     width: 48px;
     height: 48px;
   }
-}
-
-.spinnerInner {
-  width: 100%;
-  height: 100%;
-  border: 2px solid transparent;
-  border-top: 2px solid currentColor;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-}
-
-.spinner {
+  
   &.primary {
     color: $primary;
   }
@@ -42,6 +31,15 @@
   &.white {
     color: $white;
   }
+}
+
+.spinnerInner {
+  width: 100%;
+  height: 100%;
+  border: 2px solid transparent;
+  border-top: 2px solid currentColor;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
 @keyframes spin {

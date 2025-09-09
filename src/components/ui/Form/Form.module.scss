@@ -3,11 +3,6 @@
 @use 'sass:map';
 
 .form {
-    max-width: 450px;
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
-    margin: 0 auto;
     padding: $p-sm;
 
     @media (min-width: map.get($breakpoints, md)) {
@@ -25,5 +20,80 @@
         font-size: 40px;
         line-height: 40px;
         color: $black;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 40px;
+        line-height: 40px;
+        color: $black;
+        margin-bottom: 50px;
+    }
+
+    .error {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        width: calc(100% - 20px);
+        transform: translateX(-50%);
+        z-index: 1000;
+        margin-top: 10px;
+        background-color: rgba(255, 255, 255, 0.8);
+        backdrop-filter: blur(14px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px;
+        background-color: rgba($red, 0.1);
+        border: 1px solid $red;
+        border-radius: 8px;
+        
+        p {
+            color: $red;
+            font-size: $font-size-base;
+            text-align: center;
+            margin: 0;
+        }
+    }
+}
+
+
+.formContainer {
+    position: relative;
+}
+
+.formInput {
+    max-width: 450px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    margin: 0 auto;
+}
+
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    border-radius: 8px;
+}
+
+.overlayContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    
+    p {
+        color: $black;
+        font-size: $font-size-lg;
+        font-weight: 500;
+        margin: 0;
     }
 }

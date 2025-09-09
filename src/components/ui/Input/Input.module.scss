@@ -241,3 +241,13 @@
   cursor: pointer;
   z-index: 1;
 }
+
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  color: $gray;
+  font-size: $font-size-base;
+  font-style: italic;
+}

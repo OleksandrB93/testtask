@@ -17,6 +17,8 @@ interface FormInputProps {
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
   name?: string;
   ref?: React.Ref<HTMLInputElement>;
+  isLoading?: boolean;
+  accept?: string;
   register?: {
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     onBlur: (event: React.FocusEvent<HTMLInputElement>) => void;
@@ -41,6 +43,8 @@ const FormInput: React.FC<FormInputProps> = ({
   onBlur,
   name,
   ref,
+  isLoading,
+  accept,
   register,
 }) => {
   if (type === "radio") {
@@ -53,6 +57,7 @@ const FormInput: React.FC<FormInputProps> = ({
         onRadioChange={onRadioChange}
         errorText={errorText}
         hasError={hasError}
+        isLoading={isLoading}
         onBlur={onBlur || register?.onBlur}
         name={name || register?.name}
         ref={ref || register?.ref}
@@ -74,6 +79,7 @@ const FormInput: React.FC<FormInputProps> = ({
         onBlur={onBlur || register?.onBlur}
         name={name || register?.name}
         ref={ref || register?.ref}
+        accept={accept}
       />
     );
   }

@@ -1,13 +1,36 @@
 @use '../../../styles/variables' as *;
 @use '../../../styles/colors' as *;
+@use 'sass:map';
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 50px;
+    max-width: 450px;
+    margin: 0 auto;
+    padding: $p-sm;
+
+    @media (min-width: map.get($breakpoints, md)) {
+        padding: $p-md;
+    }
+    @media (min-width: map.get($breakpoints, lg)) {
+        padding: $p-lg;
+    }
+    @media (min-width: map.get($breakpoints, xl)) {
+        padding: $p-xl;
+    }
+}
 
 .title {
     font-size: $font-size-4xl;
     line-height: 40px;
     color: $black;
-    margin-bottom: 50px;
+    text-align: center;
+    margin: 0;
 }
 
 .img {
-    margin: auto
+    max-width: 100%;
+    height: auto;
 }

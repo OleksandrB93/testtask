@@ -19,6 +19,7 @@ interface InputProps {
   name?: string;
   ref?: React.Ref<HTMLInputElement>;
   onBlur?: (event: React.FocusEvent<HTMLInputElement>) => void;
+  isLoading?: boolean;
 }
 
 interface RadioOption {
@@ -44,10 +45,16 @@ const Input: React.FC<InputProps> = ({
   name,
   ref,
   onBlur,
+  isLoading = false,
   ...rest
 }) => {
   const [isFocused, setIsFocused] = useState(false);
   const [inputValue, setInputValue] = useState(value);
+
+  // Sync inputValue with external value prop
+  React.useEffect(() => {
+    setInputValue(value);
+  }, [value]);
 
   const handleFocus = () => {
     setIsFocused(true);
@@ -71,7 +78,9 @@ const Input: React.FC<InputProps> = ({
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log("File input changed, files:", e.target.files);
     const file = e.target.files?.[0] || null;
+    console.log("Selected file:", file);
     onFileSelect?.(file);
     if (file) {
       setInputValue(file.name);
@@ -80,9 +89,14 @@ const Input: React.FC<InputProps> = ({
   };
 
   const handleUploadClick = () => {
+    console.log(
+      "Upload button clicked, looking for input with id:",
+      `file-input-${label}`
+    );
     const fileInput = document.getElementById(
       `file-input-${label}`
     ) as HTMLInputElement;
+    console.log("Found file input:", fileInput);
     fileInput?.click();
   };
 
@@ -94,20 +108,24 @@ const Input: React.FC<InputProps> = ({
       <div className={styles.inputContainer}>
         <div className={styles.radioGroup}>
           <div className={styles.radioLabel}>{label}</div>
-          {radioOptions.map((option) => (
-            <label key={option.value} className={styles.radioOption}>
-              <input
-                type="radio"
-                name={name || label}
-                value={option.value}
-                checked={radioValue === option.value}
-                onChange={handleRadioChange}
-                className={styles.radioInput}
-                {...rest}
-              />
-              <span className={styles.radioLabelText}>{option.label}</span>
-            </label>
-          ))}
+          {isLoading ? (
+            <div className={styles.loading}>Loading positions...</div>
+          ) : (
+            radioOptions.map((option) => (
+              <label key={option.value} className={styles.radioOption}>
+                <input
+                  type="radio"
+                  name={name || label}
+                  value={option.value}
+                  checked={radioValue === option.value}
+                  onChange={handleRadioChange}
+                  className={styles.radioInput}
+                  {...rest}
+                />
+                <span className={styles.radioLabelText}>{option.label}</span>
+              </label>
+            ))
+          )}
         </div>
         {showError ? (
           <span className={styles.errorText}>{errorText}</span>
@@ -152,7 +170,7 @@ const Input: React.FC<InputProps> = ({
               />
               <input
                 id={`file-input-${label}`}
-                type={type}
+                type="file"
                 accept={accept}
                 onChange={handleFileChange}
                 className={styles.hiddenFileInput}

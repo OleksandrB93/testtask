@@ -12,9 +12,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    // gap: map.get($spacers, 6);
     background-color: $black;
     background-color: $white;
+
+    @media (min-width: map.get($breakpoints, md)) {
+        width: 328px;
+    }
+    @media (min-width: map.get($breakpoints, lg)) {
+        width: 344px;
+    }
+    @media (min-width: map.get($breakpoints, xl)) {
+        width: 282px;
+    }
 
     .header {
         display: flex;
@@ -22,6 +31,11 @@
         flex-direction: column;
         gap: map.get($spacers, 6);
         margin: 20px 0;
+        text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
     }
 
     .content {
@@ -33,5 +47,10 @@
 
     .position, .email, .phone {
         line-height: 1.1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        max-width: 100%;
+        text-align: center;
     }
 }
