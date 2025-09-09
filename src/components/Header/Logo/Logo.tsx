@@ -1,5 +1,6 @@
+import { memo } from "react";
 import styles from "./Logo.module.scss";
-import logo from "../../../assets/logo.svg";
+import logo from "../../../assets/Logo.svg";
 
 const Logo = () => {
   return (
@@ -9,4 +10,4 @@ const Logo = () => {
   );
 };
 
-export default Logo;
+export default memo(Logo);

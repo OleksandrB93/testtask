@@ -1,3 +1,4 @@
+import { memo } from "react";
 import styles from "./SuccessReg.module.scss";
 import Button from "../Button/Button";
 import successImage from "../../../assets/success-image.svg";
@@ -26,4 +27,4 @@ const SuccessReg = ({
   );
 };
 
-export default SuccessReg;
+export default memo(SuccessReg);

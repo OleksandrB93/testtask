@@ -17,7 +17,7 @@ const Tooltip: React.FC<TooltipProps> = ({
   className = "",
 }) => {
   const [isVisible, setIsVisible] = useState(false);
-  const [timeoutId, setTimeoutId] = useState<number | null>(null);
+  const [timeoutId, setTimeoutId] = useState<NodeJS.Timeout | null>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
 
   const showTooltip = () => {

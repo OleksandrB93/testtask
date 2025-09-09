@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, memo, useCallback } from "react";
 import styles from "./Input.module.scss";
 
 interface InputProps {
@@ -56,39 +56,51 @@ const Input: React.FC<InputProps> = ({
     setInputValue(value);
   }, [value]);
 
-  const handleFocus = () => {
+  const handleFocus = useCallback(() => {
     setIsFocused(true);
-  };
+  }, []);
 
-  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    setIsFocused(false);
-    // Also call the native onBlur if it exists (for react-hook-form)
-    onBlur?.(e);
-  };
+  const handleBlur = useCallback(
+    (e: React.FocusEvent<HTMLInputElement>) => {
+      setIsFocused(false);
+      // Also call the native onBlur if it exists (for react-hook-form)
+      onBlur?.(e);
+    },
+    [onBlur]
+  );
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    setInputValue(newValue);
-    onChange?.(newValue);
-  };
+  const handleChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      setInputValue(newValue);
+      onChange?.(newValue);
+    },
+    [onChange]
+  );
 
-  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = e.target.value;
-    onRadioChange?.(newValue);
-  };
+  const handleRadioChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const newValue = e.target.value;
+      onRadioChange?.(newValue);
+    },
+    [onRadioChange]
+  );
 
-  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("File input changed, files:", e.target.files);
-    const file = e.target.files?.[0] || null;
-    console.log("Selected file:", file);
-    onFileSelect?.(file);
-    if (file) {
-      setInputValue(file.name);
-      onChange?.(file.name);
-    }
-  };
+  const handleFileChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      console.log("File input changed, files:", e.target.files);
+      const file = e.target.files?.[0] || null;
+      console.log("Selected file:", file);
+      onFileSelect?.(file);
+      if (file) {
+        setInputValue(file.name);
+        onChange?.(file.name);
+      }
+    },
+    [onFileSelect, onChange]
+  );
 
-  const handleUploadClick = () => {
+  const handleUploadClick = useCallback(() => {
     console.log(
       "Upload button clicked, looking for input with id:",
       `file-input-${label}`
@@ -98,7 +110,7 @@ const Input: React.FC<InputProps> = ({
     ) as HTMLInputElement;
     console.log("Found file input:", fileInput);
     fileInput?.click();
-  };
+  }, [label]);
 
   const isFloating = isFocused || inputValue.length > 0;
   const showError = hasError && errorText;
@@ -221,4 +233,4 @@ const Input: React.FC<InputProps> = ({
   );
 };
 
-export default Input;
+export default memo(Input);

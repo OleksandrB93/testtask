@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback, memo } from "react";
 import Button from "../ui/Button/Button";
 import Card from "../ui/Card/Card";
 import Spinner from "../ui/Spinner/Spinner";
@@ -57,18 +57,18 @@ const Team = () => {
     }
   }, [data, currentPage]);
 
-  const handleShowMore = () => {
+  const handleShowMore = useCallback(() => {
     if (hasMorePages) {
       setCurrentPage((prev) => prev + 1);
     }
-  };
+  }, [hasMorePages]);
 
-  const handleReset = () => {
+  const handleReset = useCallback(() => {
     setCurrentPage(1);
     setAllUsers([]);
     setHasMorePages(true);
     refetch();
-  };
+  }, [refetch]);
 
   if (error) {
     return (
@@ -83,18 +83,22 @@ const Team = () => {
   }
 
   return (
-    <section className={styles.team}>
-      <h2>Working with GET request</h2>
+    <section className={styles.team} id="team" aria-labelledby="team-title">
+      <h2 id="team-title">Working with GET request</h2>
 
       {isLoading ? (
-        <div className={styles.loadingOverlay}>
+        <div
+          className={styles.loadingOverlay}
+          role="status"
+          aria-label="Loading team members"
+        >
           <Spinner size="large" color="secondary" />
         </div>
       ) : (
         <>
-          <ul>
+          <ul role="list" aria-label="Team members list">
             {allUsers.map((user) => (
-              <li key={user.id}>
+              <li key={user.id} role="listitem">
                 <Card
                   name={user.name}
                   position={user.position}
@@ -108,19 +112,31 @@ const Team = () => {
           </ul>
 
           {isLoading && currentPage > 1 && (
-            <div className={styles.loadingMore}>
+            <div
+              className={styles.loadingMore}
+              role="status"
+              aria-label="Loading more team members"
+            >
               <Spinner />
             </div>
           )}
 
           {hasMorePages && (
-            <Button onClick={handleShowMore} disabled={isLoading}>
+            <Button
+              onClick={handleShowMore}
+              disabled={isLoading}
+              aria-label="Load more team members"
+            >
               Show more
             </Button>
           )}
 
           {allUsers.length > 6 && (
-            <Button onClick={handleReset} variant="primary">
+            <Button
+              onClick={handleReset}
+              variant="primary"
+              aria-label="Reset to first page"
+            >
               Reset to first page
             </Button>
           )}
@@ -130,4 +146,4 @@ const Team = () => {
   );
 };
 
-export default Team;
+export default memo(Team);

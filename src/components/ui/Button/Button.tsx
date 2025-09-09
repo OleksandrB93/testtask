@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Button.module.scss";
 
 interface ButtonProps {
@@ -8,6 +8,7 @@ interface ButtonProps {
   onClick?: () => void;
   className?: string;
   type?: "button" | "submit" | "reset";
+  ariaLabel?: string;
 }
 
 const Button: React.FC<ButtonProps> = ({
@@ -17,6 +18,7 @@ const Button: React.FC<ButtonProps> = ({
   onClick,
   className = "",
   type = "button",
+  ariaLabel = "button",
 }) => {
   // Build class names using CSS modules
   const buttonClasses = [styles[variant], className].filter(Boolean).join(" ");
@@ -27,10 +29,11 @@ const Button: React.FC<ButtonProps> = ({
       disabled={disabled}
       onClick={onClick}
       type={type}
+      aria-label={ariaLabel}
     >
       {children}
     </button>
   );
 };
 
-export default Button;
+export default memo(Button);

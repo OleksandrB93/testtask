@@ -1,7 +1,7 @@
 import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo, useCallback, memo } from "react";
 import FormInput from "./FormInput";
 import styles from "./Form.module.scss";
 import Button from "../Button/Button";
@@ -50,12 +50,15 @@ const Form = () => {
   } = usePositions();
   const registerUserMutation = useRegisterUser();
 
-  // Transform positions data for radio options
-  const radioOptions =
-    positionsData?.positions?.map((position) => ({
-      value: position.id.toString(),
-      label: position.name,
-    })) || [];
+  // Transform positions data for radio options - memoized
+  const radioOptions = useMemo(
+    () =>
+      positionsData?.positions?.map((position) => ({
+        value: position.id.toString(),
+        label: position.name,
+      })) || [],
+    [positionsData?.positions]
+  );
 
   const {
     register,
@@ -87,39 +90,42 @@ const Form = () => {
     }
   }, [positionsData, setValue, watch]);
 
-  const onSubmit = async (data: FormData) => {
-    if (!data.photo) {
-      console.error("Photo is required");
-      return;
-    }
+  const onSubmit = useCallback(
+    async (data: FormData) => {
+      if (!data.photo) {
+        console.error("Photo is required");
+        return;
+      }
 
-    const registrationData: RegistrationRequest = {
-      name: data.name,
-      email: data.email,
-      phone: data.phone,
-      position_id: data.position_id.toString(),
-      photo: data.photo,
-    };
+      const registrationData: RegistrationRequest = {
+        name: data.name,
+        email: data.email,
+        phone: data.phone,
+        position_id: data.position_id.toString(),
+        photo: data.photo,
+      };
 
-    try {
-      await registerUserMutation.mutateAsync(registrationData);
-      setIsSuccess(true);
-      reset(); // Reset form after successful submission
+      try {
+        await registerUserMutation.mutateAsync(registrationData);
+        setIsSuccess(true);
+        reset(); // Reset form after successful submission
 
-      // Dispatch custom event to notify other components
-      window.dispatchEvent(new CustomEvent("userRegistered"));
-    } catch (error) {
-      console.error("Registration failed:", error);
-      // Error handling is done by the mutation
-    }
-  };
+        // Dispatch custom event to notify other components
+        window.dispatchEvent(new CustomEvent("userRegistered"));
+      } catch (error) {
+        console.error("Registration failed:", error);
+        // Error handling is done by the mutation
+      }
+    },
+    [registerUserMutation, reset]
+  );
 
-  const handleFileSelect = (file: File | null) => {
+  const handleFileSelect = useCallback((file: File | null) => {
     console.log("File selected:", file);
-  };
+  }, []);
 
-  // Phone number formatting function for display
-  const formatPhoneNumberForDisplay = (value: string) => {
+  // Phone number formatting function for display - memoized
+  const formatPhoneNumberForDisplay = useCallback((value: string) => {
     // Remove all non-digit characters except +
     const cleaned = value.replace(/[^\d+]/g, "");
 
@@ -157,10 +163,10 @@ const Form = () => {
     }
 
     return value;
-  };
+  }, []);
 
-  // Phone number cleaning function for storage
-  const cleanPhoneNumber = (value: string) => {
+  // Phone number cleaning function for storage - memoized
+  const cleanPhoneNumber = useCallback((value: string) => {
     // Remove all non-digit characters except +
     const cleaned = value.replace(/[^\d+]/g, "");
 
@@ -173,7 +179,7 @@ const Form = () => {
     }
 
     return cleaned;
-  };
+  }, []);
 
   if (isSuccess) {
     return <SuccessReg onBackToForm={() => setIsSuccess(false)} />;
@@ -183,9 +189,13 @@ const Form = () => {
   }
 
   return (
-    <div className={styles.formContainer}>
-      <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-        <h2>Working with POST request</h2>
+    <div className={styles.formContainer} id="form">
+      <form
+        className={styles.form}
+        onSubmit={handleSubmit(onSubmit)}
+        aria-labelledby="form-title"
+      >
+        <h2 id="form-title">Working with POST request</h2>
 
         <div className={styles.formInput}>
           <Controller
@@ -344,4 +354,4 @@ const Form = () => {
   );
 };
 
-export default Form;
+export default memo(Form);

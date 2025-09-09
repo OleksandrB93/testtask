@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 import styles from "./Spinner.module.scss";
 
 interface SpinnerProps {
@@ -23,4 +23,4 @@ const Spinner: React.FC<SpinnerProps> = ({
   );
 };
 
-export default Spinner;
+export default memo(Spinner);
