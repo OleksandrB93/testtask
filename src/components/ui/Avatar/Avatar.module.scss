@@ -1,0 +1,8 @@
+@use '../../styles/variables' as *;
+
+.avatar {
+    width: 70px;
+    height: 70px;
+    border-radius: $border-radius-full;
+    object-fit: cover;
+}

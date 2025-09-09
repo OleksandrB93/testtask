@@ -1,0 +1,36 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/colors' as *;
+
+$button-border-radius: $border-radius-full;
+
+// Mixin for button base styles
+@mixin button-base {
+  width: fit-content;
+  border: none;
+  border-radius: $button-border-radius;
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 1.625;
+  cursor: pointer;
+  margin: 0 auto;
+}
+
+.primary {
+  @include button-base;
+  background-color: $primary;
+  color: $black;
+  padding: 4px 23px;
+  transition: $transition-base;
+  
+  &:hover {
+    background-color: $primary-hover;
+  }
+}
+
+.disabled {
+  @include button-base;
+  background-color: $disabled;
+  color: $white;
+  padding: 4px 18px;
+  cursor: not-allowed;
+}

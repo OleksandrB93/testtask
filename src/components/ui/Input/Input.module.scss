@@ -1,0 +1,243 @@
+@use '../../../styles/colors' as *;
+@use '../../../styles/variables' as *;
+
+
+.inputWrapper {
+  position: relative;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: $white;
+  transition: $transition-base;
+  
+  &:hover {
+    border-color: $border-color;
+  }
+  
+  &:focus-within {
+    border-color: $border-color;
+    border-width: 2px;
+  }
+  
+  &.error {
+    border-color: $red;
+    border-width: 2px;
+    
+    &:focus-within {
+      border-color: $red;
+    }
+  }
+}
+
+.input {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $black;
+  
+  &::placeholder {
+    color: transparent;
+  }
+  
+  &:focus {
+    &::placeholder {
+      color: $border-color;
+    }
+  }
+}
+
+.label {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: $font-size-base;
+  color: $gray;
+  background-color: $white;
+  padding: 0 4px;
+  transition: $transition-base;
+  pointer-events: none;
+  user-select: none;
+  
+  &.floating {
+    top: 0;
+    transform: translateY(-50%);
+    font-size: 12px;
+    color: $gray;
+  }
+  
+  &.errorLabel {
+    color: $red;
+    
+    &.floating {
+      color: $red;
+    }
+  }
+}
+
+.helperText {
+  font-size: 12px;
+  color: $gray;
+  margin-left: 12px;
+  line-height: $line-height-xs;
+}
+
+.errorText {
+  font-size: 12px;
+  color: $red;
+  margin-left: 12px;
+  line-height: $line-height-xs;
+}
+
+// Radio Button Styles
+.radioGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.radioLabel {
+  font-size: $font-size-base;
+  color: $black;
+  font-weight: $font-weight-medium;
+  margin-bottom: 8px;
+}
+
+.radioOption {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.radioInput {
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid $border-color;
+  border-radius: 50%;
+  background-color: $white;
+  cursor: pointer;
+  position: relative;
+  transition: $transition-base;
+  
+  &:hover {
+    border-color: $secondary;
+  }
+  
+  &:checked {
+    border-color: $secondary;
+    background-color: $white;
+    
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: $secondary;
+    }
+  }
+  
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(0, 189, 211, 0.2);
+  }
+}
+
+.radioLabelText {
+  font-size: $font-size-base;
+  color: $black;
+  line-height: $line-height-base;
+}
+
+// Upload Styles
+.uploadWrapper {
+  width: 100%;
+}
+
+.uploadContainer {
+  display: flex;
+  align-items: center;
+  border: 1px solid $border-color;
+  border-radius: 4px;
+  background-color: $white;
+  transition: $transition-base;
+  
+  &:hover {
+    border-color: $border-color;
+  }
+  
+  &.error {
+    border-color: $red;
+    border-width: 2px;
+  }
+}
+
+.uploadButton {
+  padding: 14px 16px;
+  border: none;
+  border-right: 1px solid $border-color;
+  border-top-left-radius: $border-radius-sm;
+  border-bottom-left-radius: $border-radius-sm;
+  background-color: $white;
+  color: $black;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  cursor: pointer;
+  transition: $transition-base;
+  white-space: nowrap;
+  
+  &:hover {
+    background-color: $primary;
+  }
+  
+  &:focus {
+    outline: none;
+    background-color: $gray;
+  }
+  
+  &.errorButton {
+    border-color: $red;
+    color: $red;
+  }
+}
+
+.uploadInputWrapper {
+  flex: 1;
+  position: relative;
+}
+
+.uploadInput {
+  width: 100%;
+  padding: 14px 16px;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: $font-size-base;
+  line-height: $line-height-base;
+  color: $black;
+  cursor: pointer;
+  
+  &::placeholder {
+    color: $border-color;
+  }
+}
+
+.hiddenFileInput {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 1;
+}

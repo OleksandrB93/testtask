@@ -1,0 +1,22 @@
+@use '../../styles/colors' as *;
+@use '../../styles/variables' as *;
+@use 'sass:map';
+
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 16px;
+
+    @media (min-width: map.get($breakpoints, md)) {
+        padding: 13px 60px;
+    }
+    background-color: $white;
+
+    .btnsWrapper {
+        display: flex;
+        gap: map.get($spacers, 3);
+    }
+
+}
